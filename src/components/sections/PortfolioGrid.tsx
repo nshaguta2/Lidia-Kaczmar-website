@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { portfolioPhotos, socialLinks } from "@/data";
+import { portfolioCopy, portfolioPhotos, socialLinks } from "@/data";
 import { PortfolioLightbox } from "@/components/portfolio/PortfolioLightbox";
 import { PortfolioPhotoCard } from "@/components/portfolio/PortfolioPhotoCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -18,7 +18,7 @@ export default function PortfolioGrid() {
   return (
     <section id="portfolio" className="min-h-screen bg-stone-950 py-24">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionHeading title="Portfolio" />
+        <SectionHeading title={portfolioCopy.title} />
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
           {featuredPhotos.map((photo, index) => (
@@ -55,7 +55,7 @@ export default function PortfolioGrid() {
             className="mt-16 border-t border-stone-900 pt-10 text-center"
           >
             <p className="mx-auto max-w-2xl text-base font-light leading-[1.8] text-stone-400 md:text-lg">
-              Wi\u0119cej aktualnych kadr\u00F3w, nowych realizacji i kulis pracy mo\u017Cna zobaczy\u0107 na Instagramie.
+              {portfolioCopy.instagramBlurb}
             </p>
             <div className="mt-6">
               <Button

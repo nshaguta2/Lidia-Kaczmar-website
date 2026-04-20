@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Photo } from "@/types";
 
 interface PortfolioLightboxProps {
@@ -20,6 +20,7 @@ export function PortfolioLightbox({
 }: PortfolioLightboxProps) {
   const selectedIndex = photos.findIndex((photo) => photo.id === selectedId);
   const selectedPhoto = selectedIndex >= 0 ? photos[selectedIndex] : null;
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   useEffect(() => {
     if (!selectedPhoto) {
@@ -53,6 +54,10 @@ export function PortfolioLightbox({
     };
   }, [onClose, onSelect, photos, selectedIndex, selectedPhoto]);
 
+  useEffect(() => {
+    setIsImageLoaded(false);
+  }, [selectedPhoto]);
+
   return (
     <AnimatePresence>
       {selectedPhoto && (
@@ -68,14 +73,33 @@ export function PortfolioLightbox({
             className="relative flex h-full w-full max-w-[1800px] items-center justify-center"
             onClick={(event) => event.stopPropagation()}
           >
+            {!isImageLoaded && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="h-10 w-10 animate-spin rounded-full border border-stone-700 border-t-stone-300" />
+              </div>
+            )}
+
             <motion.img
               key={selectedPhoto.id}
               initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
+              animate={{ opacity: isImageLoaded ? 1 : 0, scale: isImageLoaded ? 1 : 0.985 }}
               exit={{ opacity: 0, scale: 0.98 }}
               transition={{ duration: 0.28, ease: "easeOut" }}
               src={selectedPhoto.src}
               alt={selectedPhoto.alt}
+              onLoad={() => setIsImageLoaded(true)}
+              onError={(event) => {
+                const target = event.currentTarget;
+                const currentSrc = target.getAttribute("src") ?? "";
+                const baseSegment = window.location.pathname.split("/").filter(Boolean)[0];
+
+                if (currentSrc.startsWith("/") && baseSegment && !currentSrc.startsWith(`/${baseSegment}/`)) {
+                  target.src = `${window.location.origin}/${baseSegment}${currentSrc}`;
+                  return;
+                }
+
+                setIsImageLoaded(true);
+              }}
               className="block max-h-[88vh] max-w-full object-contain shadow-2xl"
             />
 

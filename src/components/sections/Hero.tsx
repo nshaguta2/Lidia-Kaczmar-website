@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { heroImages, siteMetaData } from "@/data";
+import { heroCopy, heroImages, siteMetaData } from "@/data";
 import { Button } from "@/components/ui/Button";
 
 export default function Hero() {
@@ -51,7 +51,7 @@ export default function Hero() {
           transition={{ duration: 1, delay: 0.2, ease: [0.25, 0.1, 0.25, 1.0] }}
           className="mb-8 text-xs font-medium uppercase tracking-[0.4em] text-stone-400 md:text-sm"
         >
-          Fotografia kulinarna
+          {heroCopy.eyebrow}
         </motion.p>
 
         <motion.h1
@@ -60,7 +60,7 @@ export default function Hero() {
           transition={{ duration: 1, delay: 0.4, ease: [0.25, 0.1, 0.25, 1.0] }}
           className="mb-6 max-w-5xl text-4xl font-light leading-[1.08] text-stone-100 md:text-6xl lg:text-[5.4rem]"
         >
-          Dobre zdjęcie kulinarne działa zanim pojawi się pierwszy kęs.
+          {heroCopy.title}
         </motion.h1>
 
         <motion.p
@@ -69,7 +69,7 @@ export default function Hero() {
           transition={{ duration: 1, delay: 0.55, ease: [0.25, 0.1, 0.25, 1.0] }}
           className="mb-6 max-w-3xl text-lg font-light text-stone-200 md:text-2xl"
         >
-          Pokazuje smak, temperaturę, strukturę i nastrój.
+          {heroCopy.subtitle}
         </motion.p>
 
         <motion.p
@@ -86,7 +86,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
-          <Button href="#portfolio">Zobacz portfolio</Button>
+          <Button href="#portfolio">{heroCopy.ctaLabel}</Button>
         </motion.div>
       </div>
     </section>

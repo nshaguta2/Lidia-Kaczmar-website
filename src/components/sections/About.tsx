@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { aboutCopy, siteBasePath } from "@/data";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { siteBasePath } from "@/data";
 
 export default function About() {
   return (
@@ -32,19 +32,12 @@ export default function About() {
           transition={{ duration: 1, delay: 0.2, ease: [0.25, 0.1, 0.25, 1.0] }}
           className="flex w-full flex-col justify-center md:w-1/2"
         >
-          <SectionHeading title="O mnie" lineClassName="bg-stone-500" className="mb-10" />
+          <SectionHeading title={aboutCopy.title} lineClassName="bg-stone-500" className="mb-10" />
 
           <div className="max-w-prose space-y-6 text-lg font-light leading-[1.8] text-stone-400">
-            <p>
-              Wszystko zaczęło się od jednego zadania na studiach fotograficznych. Temat był dowolny, więc
-              sięgnęłam po jedzenie. Zdjęcia zaskoczyły mnie samą. I pojawiło się coś, od czego już nie chciałam
-              odejść.
-            </p>
-            <p>
-              Dziś tworzę naturalne obrazy kulinarne dla marek, stawiając na światło, fakturę i apetyczny,
-              wiarygodny obraz jedzenia. Interesuje mnie fotografia, która nie udaje, tylko naprawdę pokazuje
-              smak, temperaturę, strukturę i nastrój.
-            </p>
+            {aboutCopy.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
           </div>
         </motion.div>
       </div>

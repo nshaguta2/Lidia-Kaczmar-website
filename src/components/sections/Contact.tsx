@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
-import { siteMetaData, socialLinks } from "@/data";
+import { contactCopy, siteMetaData, socialLinks } from "@/data";
 
 export default function Contact() {
   return (
@@ -15,14 +15,13 @@ export default function Contact() {
           transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1.0] }}
         >
           <h2 className="mb-6 text-4xl font-light tracking-wide text-stone-100 md:text-5xl">
-            Porozmawiajmy o sesji, która pokaże coś prawdziwego
+            {contactCopy.title}
           </h2>
           <p className="mx-auto mb-14 max-w-2xl text-lg font-light leading-[1.8] text-stone-400">
-            Tworzę naturalne obrazy kulinarne dla marek, które chcą komunikować się estetycznie, apetycznie i
-            bez wizualnego nadmiaru.
+            {contactCopy.description}
           </p>
 
-          <Button href={`mailto:${siteMetaData.email}`}>Napisz do mnie</Button>
+          <Button href={`mailto:${siteMetaData.email}`}>{contactCopy.ctaLabel}</Button>
 
           <div className="mt-12 flex flex-col items-center gap-4 text-sm uppercase tracking-[0.18em] text-stone-500">
             <a href={`mailto:${siteMetaData.email}`} className="transition-colors hover:text-stone-100">
