@@ -7,23 +7,11 @@ import { Button } from "@/components/ui/Button";
 
 export default function Hero() {
   const [currentImage, setCurrentImage] = useState(0);
-  const [loadedImages, setLoadedImages] = useState<boolean[]>(() => heroImages.map(() => false));
 
   useEffect(() => {
-    heroImages.forEach((image, index) => {
+    heroImages.slice(1).forEach((image) => {
       const img = new window.Image();
       img.src = image.src;
-      img.onload = () => {
-        setLoadedImages((prev) => {
-          if (prev[index]) {
-            return prev;
-          }
-
-          const next = [...prev];
-          next[index] = true;
-          return next;
-        });
-      };
     });
   }, []);
 
@@ -43,22 +31,15 @@ export default function Hero() {
     <section className="relative flex h-screen items-center overflow-hidden bg-stone-950">
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden opacity-60 md:opacity-100">
         {heroImages.map((image, index) => (
-          <motion.div
+          <div
             key={image.src}
-            initial={false}
-            animate={{ opacity: currentImage === index ? 1 : 0 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-            className="absolute inset-0 h-full w-full"
-          >
-            <img
-              src={image.src}
-              alt={image.alt}
-              loading={index === 0 ? "eager" : "lazy"}
-              fetchPriority={index === 0 ? "high" : "auto"}
-              className="absolute inset-0 h-full w-full object-cover object-center"
-              style={{ visibility: loadedImages[index] ? "visible" : "hidden" }}
-            />
-          </motion.div>
+            aria-hidden={currentImage !== index}
+            className={`absolute inset-0 h-full w-full bg-cover bg-center transition-opacity duration-[1400ms] ease-out ${
+              currentImage === index ? "opacity-100" : "opacity-0"
+            }`}
+            title={image.alt}
+            style={{ backgroundImage: `url("${image.src}")` }}
+          />
         ))}
         <div className="absolute inset-0 bg-stone-950/40" />
       </div>
