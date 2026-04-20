@@ -1,5 +1,12 @@
 import { HeroImage, NavItem, Photo, SocialLink } from "@/types";
 
+const githubRepoName = process.env.GITHUB_REPOSITORY?.split("/")[1];
+export const siteBasePath =
+  process.env.NEXT_PUBLIC_BASE_PATH ??
+  (process.env.GITHUB_ACTIONS === "true" && githubRepoName ? `/${githubRepoName}` : "");
+
+const withBasePath = (path: string) => `${siteBasePath}${path}`;
+
 export const siteMetaData = {
   title: "Lidia Kaczmar | Fotografia kulinarna",
   description:
@@ -19,29 +26,29 @@ export const navLinks: NavItem[] = [
 
 export const heroImages: HeroImage[] = [
   {
-    src: "/images/hero/xt402530.jpg",
+    src: withBasePath("/images/hero/xt402530.jpg"),
     alt: "Fotografia kulinarna - pizza",
   },
   {
-    src: "/images/hero/xt402553.jpg",
+    src: withBasePath("/images/hero/xt402553.jpg"),
     alt: "Fotografia kulinarna - świąteczne ciasteczka",
   },
 ];
 
 export const portfolioPhotos: Photo[] = [
-  { id: "dscf0977", src: "/images/portfolio/dscf0977.jpg", alt: "Burger w ciemnej oprawie" },
-  { id: "dscf1493", src: "/images/portfolio/dscf1493.jpg", alt: "Drink z limonką i ruchem" },
-  { id: "oreo", src: "/images/portfolio/oreo.jpg", alt: "Oreo i mleczny splash" },
+  { id: "dscf0977", src: withBasePath("/images/portfolio/dscf0977.jpg"), alt: "Burger w ciemnej oprawie" },
+  { id: "dscf1493", src: withBasePath("/images/portfolio/dscf1493.jpg"), alt: "Drink z limonką i ruchem" },
+  { id: "oreo", src: withBasePath("/images/portfolio/oreo.jpg"), alt: "Oreo i mleczny splash" },
   {
     id: "xt404439-enhanced-nr",
-    src: "/images/portfolio/xt404439-enhanced-nr.jpg",
+    src: withBasePath("/images/portfolio/xt404439-enhanced-nr.jpg"),
     alt: "Mleczny splash z plasterkiem pomarańczy",
   },
-  { id: "dscf0844", src: "/images/portfolio/dscf0844.jpg", alt: "Talerz w dłoni" },
-  { id: "dscf5431", src: "/images/portfolio/dscf5431.jpg", alt: "Koktajl z różanym wykończeniem" },
-  { id: "dscf2706", src: "/images/portfolio/dscf2706.jpg", alt: "Bochen chleba w dłoniach" },
-  { id: "dscf4315", src: "/images/portfolio/dscf4315.jpg", alt: "Zupa dyniowa w ujęciu z góry" },
-  { id: "dscf2235", src: "/images/portfolio/dscf2235.jpg", alt: "Winogrona i kieliszek w świetle studyjnym" },
+  { id: "dscf0844", src: withBasePath("/images/portfolio/dscf0844.jpg"), alt: "Talerz w dłoni" },
+  { id: "dscf5431", src: withBasePath("/images/portfolio/dscf5431.jpg"), alt: "Koktajl z różanym wykończeniem" },
+  { id: "dscf2706", src: withBasePath("/images/portfolio/dscf2706.jpg"), alt: "Bochen chleba w dłoniach" },
+  { id: "dscf4315", src: withBasePath("/images/portfolio/dscf4315.jpg"), alt: "Zupa dyniowa w ujęciu z góry" },
+  { id: "dscf2235", src: withBasePath("/images/portfolio/dscf2235.jpg"), alt: "Winogrona i kieliszek w świetle studyjnym" },
 ];
 
 export const socialLinks: SocialLink[] = [

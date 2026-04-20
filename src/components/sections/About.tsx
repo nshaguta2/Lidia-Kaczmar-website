@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { siteBasePath } from "@/data";
 
 export default function About() {
   return (
@@ -16,12 +16,10 @@ export default function About() {
           className="relative w-full md:w-1/2"
         >
           <div className="relative mx-auto aspect-[3/4] w-full md:max-w-md">
-            <Image
-              src="/images/about/son02577.jpg"
+            <img
+              src={`${siteBasePath}/images/about/son02577.jpg`}
               alt="Lidia Kaczmar"
-              fill
-              className="rounded-sm object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
+              className="absolute inset-0 h-full w-full rounded-sm object-cover"
             />
             <div className="absolute -inset-4 -z-10 translate-x-[-1rem] translate-y-4 border border-stone-700/50" />
           </div>

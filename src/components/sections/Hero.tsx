@@ -2,7 +2,6 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { heroImages, siteMetaData } from "@/data";
 import { Button } from "@/components/ui/Button";
 
@@ -35,13 +34,10 @@ export default function Hero() {
             transition={{ duration: 1.5, ease: "easeOut" }}
             className="absolute inset-0 h-full w-full"
           >
-            <Image
+            <img
               src={activeImage.src}
               alt={activeImage.alt}
-              fill
-              priority
-              className="object-cover object-center"
-              sizes="100vw"
+              className="absolute inset-0 h-full w-full object-cover object-center"
             />
           </motion.div>
         </AnimatePresence>

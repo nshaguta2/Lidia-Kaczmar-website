@@ -2,7 +2,6 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import Image from "next/image";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { portfolioPhotos, socialLinks } from "@/data";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -48,12 +47,10 @@ export default function PortfolioGrid() {
       className={`group relative cursor-pointer overflow-hidden rounded-sm ${className}`}
     >
       <motion.div layoutId={`image-${photo.id}`} className="h-full w-full">
-        <Image
+        <img
           src={photo.src}
           alt={photo.alt}
-          fill
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
-          sizes={sizes}
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
       </motion.div>
       <div className="absolute inset-0 bg-stone-950/0 transition-colors duration-500 group-hover:bg-stone-950/18" />
@@ -129,12 +126,10 @@ export default function PortfolioGrid() {
               onClick={(event) => event.stopPropagation()}
             >
               <motion.div layoutId={`image-${selectedId}`} className="relative h-full w-full max-h-[90vh]">
-                <Image
+                <img
                   src={selectedPhoto.src}
                   alt={selectedPhoto.alt}
-                  fill
-                  className="object-contain"
-                  sizes="100vw"
+                  className="absolute inset-0 h-full w-full object-contain"
                 />
               </motion.div>
 
