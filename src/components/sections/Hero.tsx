@@ -1,12 +1,31 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { heroImages, siteMetaData } from "@/data";
 import { Button } from "@/components/ui/Button";
 
 export default function Hero() {
   const [currentImage, setCurrentImage] = useState(0);
+  const [loadedImages, setLoadedImages] = useState<boolean[]>(() => heroImages.map(() => false));
+
+  useEffect(() => {
+    heroImages.forEach((image, index) => {
+      const img = new window.Image();
+      img.src = image.src;
+      img.onload = () => {
+        setLoadedImages((prev) => {
+          if (prev[index]) {
+            return prev;
+          }
+
+          const next = [...prev];
+          next[index] = true;
+          return next;
+        });
+      };
+    });
+  }, []);
 
   useEffect(() => {
     if (heroImages.length <= 1) {
@@ -20,27 +39,27 @@ export default function Hero() {
     return () => clearInterval(timer);
   }, []);
 
-  const activeImage = heroImages[currentImage];
-
   return (
     <section className="relative flex h-screen items-center overflow-hidden bg-stone-950">
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden opacity-60 md:opacity-100">
-        <AnimatePresence mode="wait">
+        {heroImages.map((image, index) => (
           <motion.div
-            key={activeImage.src}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
+            key={image.src}
+            initial={false}
+            animate={{ opacity: currentImage === index ? 1 : 0 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
             className="absolute inset-0 h-full w-full"
           >
             <img
-              src={activeImage.src}
-              alt={activeImage.alt}
+              src={image.src}
+              alt={image.alt}
+              loading={index === 0 ? "eager" : "lazy"}
+              fetchPriority={index === 0 ? "high" : "auto"}
               className="absolute inset-0 h-full w-full object-cover object-center"
+              style={{ visibility: loadedImages[index] ? "visible" : "hidden" }}
             />
           </motion.div>
-        </AnimatePresence>
+        ))}
         <div className="absolute inset-0 bg-stone-950/40" />
       </div>
 
